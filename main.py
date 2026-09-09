@@ -13,7 +13,7 @@ def home():
     return {
         "status": "online",
         "agent": "World Tour Agent",
-        "message": "Agent is ready!"
+        "message": "World Tour Agent is ready!"
     }
 
 
@@ -24,4 +24,3 @@ def run_agent(request: AgentRequest):
         "received": request.message,
         "response": "World Tour Agent received your request."
     }
-}
