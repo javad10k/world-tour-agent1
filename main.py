@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from openai import OpenAI
 
 app = FastAPI(title="World Tour Agent")
+
+client = OpenAI()
 
 
 class AgentRequest(BaseModel):
@@ -13,14 +16,18 @@ def home():
     return {
         "status": "online",
         "agent": "World Tour Agent",
-        "message": "World Tour Agent is ready!"
+        "message": "AI Agent is ready!"
     }
 
 
 @app.post("/agent")
 def run_agent(request: AgentRequest):
+    response = client.responses.create(
+        model="gpt-5.6-luna",
+        input=request.message
+    )
+
     return {
         "status": "success",
-        "received": request.message,
-        "response": "World Tour Agent received your request."
+        "response": response.output_text
     }
